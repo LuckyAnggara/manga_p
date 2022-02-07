@@ -1,13 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-TextStyle kTitleChapManga = TextStyle(
+TextStyle kTitleChapManga = const TextStyle(
   color: Colors.white,
   fontWeight: FontWeight.bold,
   fontSize: 10,
 );
 
-TextStyle kTitleManga = TextStyle(
+TextStyle kTitleManga = const TextStyle(
   color: Colors.white,
   fontWeight: FontWeight.bold,
   fontSize: 14,

@@ -16,7 +16,9 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          isDarkMode ? appData.write('darkMode', false) : appData.write('darkMode', true);
+          isDarkMode
+              ? appData.write('darkMode', false)
+              : appData.write('darkMode', true);
         },
         child: Icon(
           isDarkMode ? FontAwesomeIcons.moon : FontAwesomeIcons.sun,
@@ -35,11 +37,11 @@ class HomePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    padding: EdgeInsets.symmetric(vertical: 8),
+                    padding: const EdgeInsets.symmetric(vertical: 8),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Padding(
+                        const Padding(
                           padding: EdgeInsets.symmetric(
                             horizontal: 10,
                           ),
@@ -49,7 +51,7 @@ class HomePage extends StatelessWidget {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                             horizontal: 10,
                           ),
                           child: Text(
@@ -57,7 +59,8 @@ class HomePage extends StatelessWidget {
                             style: TextStyle(
                               fontSize: 18.0,
                               fontWeight: FontWeight.bold,
-                              color: Theme.of(context).textTheme.bodyText1?.color,
+                              color:
+                                  Theme.of(context).textTheme.bodyText1?.color,
                             ),
                           ),
                         ),
@@ -65,7 +68,7 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    padding: EdgeInsets.symmetric(vertical: 8),
+                    padding: const EdgeInsets.symmetric(vertical: 8),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [

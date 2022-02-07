@@ -15,9 +15,7 @@ class HomePremiumController extends GetxController {
     try {
       isLoading(true);
       var dataManga = await ApiService.fetchHomePremium();
-      if (dataManga != null) {
-        mangaList.value = dataManga;
-      }
+      mangaList.value = dataManga;
     } finally {
       isLoading(false);
     }

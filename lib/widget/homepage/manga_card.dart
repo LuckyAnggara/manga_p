@@ -24,23 +24,28 @@ class MangaCard extends StatelessWidget {
       child: Stack(
         alignment: Alignment.center,
         children: [
-          CachedNetworkImage(
-            imageUrl: data.image == null || data.image == '' ? data.image! : data.image2!,
-            imageBuilder: (context, imageProvider) => Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(
-                    12,
+          Hero(
+            tag: data.linkId!,
+            child: CachedNetworkImage(
+              imageUrl: data.image == null || data.image == ''
+                  ? data.image!
+                  : data.image2!,
+              imageBuilder: (context, imageProvider) => Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(
+                      12,
+                    ),
+                  ),
+                  image: DecorationImage(
+                    image: imageProvider,
+                    fit: BoxFit.cover,
                   ),
                 ),
-                image: DecorationImage(
-                  image: imageProvider,
-                  fit: BoxFit.cover,
-                ),
               ),
+              placeholder: (context, url) => const CircularProgressIndicator(),
+              errorWidget: (context, url, error) => const Icon(Icons.error),
             ),
-            placeholder: (context, url) => const CircularProgressIndicator(),
-            errorWidget: (context, url, error) => const Icon(Icons.error),
           ),
           Positioned(
             bottom: 10,
