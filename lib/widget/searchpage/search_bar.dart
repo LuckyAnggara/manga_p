@@ -23,13 +23,18 @@ class SearchBar extends StatelessWidget {
       height: 50.0,
       width: MediaQuery.of(context).size.width * 0.8,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10.0),
+        borderRadius: BorderRadius.all(
+          Radius.circular(
+            12,
+          ),
+        ),
         color: isDarkMode ? Colors.white : Colors.black,
       ),
       child: TextField(
         controller: controller,
         textInputAction: TextInputAction.search,
-        style: TextStyle(color: isDarkMode ? Colors.black : Colors.white, fontSize: 18),
+        style: TextStyle(
+            color: isDarkMode ? Colors.black : Colors.white, fontSize: 18),
         decoration: InputDecoration(
           hintStyle: TextStyle(
             color: isDarkMode ? Colors.black54 : Colors.white54,

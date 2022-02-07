@@ -21,7 +21,7 @@ void main() async {
 class ThemeClass {
   static ThemeData lightTheme = ThemeData(
     scaffoldBackgroundColor: Colors.white,
-    colorScheme: ColorScheme.light().copyWith(secondary: Colors.black),
+    colorScheme: const ColorScheme.light().copyWith(secondary: Colors.black),
     textTheme: const TextTheme(
       bodyText1: TextStyle(color: Colors.black),
     ),
@@ -29,7 +29,7 @@ class ThemeClass {
 
   static ThemeData darkTheme = ThemeData(
     scaffoldBackgroundColor: Colors.black,
-    colorScheme: ColorScheme.dark().copyWith(secondary: Colors.white),
+    colorScheme: const ColorScheme.dark().copyWith(secondary: Colors.white),
     textTheme: const TextTheme(
       bodyText1: TextStyle(color: Colors.white),
     ),
@@ -38,6 +38,8 @@ class ThemeClass {
 
 class Home extends StatelessWidget {
   final appData = GetStorage();
+
+  Home({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +51,8 @@ class Home extends StatelessWidget {
         theme: isDarkMode ? ThemeClass.darkTheme : ThemeClass.lightTheme,
         getPages: [
           GetPage(name: '/detail/:linkId', page: () => DetailPage()),
-          GetPage(name: '/read/:linkId', page: () => ReadPage()), // Dynamic route
+          GetPage(
+              name: '/read/:linkId', page: () => ReadPage()), // Dynamic route
           GetPage(name: '/search', page: () => SearchPage()), // Dynamic route
         ],
         home: HomePage(),

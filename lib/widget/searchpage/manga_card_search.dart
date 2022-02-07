@@ -25,10 +25,12 @@ class MangaCardSearch extends StatelessWidget {
         alignment: Alignment.center,
         children: [
           CachedNetworkImage(
-            imageUrl: data.image == null || data.image == '' ? data.image! : data.image2!,
+            imageUrl: data.image == null || data.image == ''
+                ? data.image!
+                : data.image2!,
             imageBuilder: (context, imageProvider) => Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(
+                borderRadius: const BorderRadius.all(
                   Radius.circular(
                     12,
                   ),
