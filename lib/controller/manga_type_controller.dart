@@ -1,14 +1,14 @@
 import 'package:get/get.dart';
 import 'package:quizapp/services/api_service.dart';
 
-class HomePremiumController extends GetxController {
+class MangaTypeController extends GetxController {
   var isLoading = true.obs;
   var mangaList = [].obs;
 
-  void fetchManga() async {
+  void fetchManga(String type) async {
     try {
       isLoading(true);
-      var dataManga = await ApiService.fetchHomePremium();
+      var dataManga = await ApiService.fetchMangaTypeRecommendation(type);
       mangaList.value = dataManga;
     } finally {
       isLoading(false);

@@ -44,19 +44,18 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     appData.writeIfNull('darkMode', false);
+    appData.writeIfNull('homeView', true);
 
-    return SimpleBuilder(builder: (_) {
-      bool isDarkMode = appData.read('darkMode');
-      return GetMaterialApp(
-        theme: isDarkMode ? ThemeClass.darkTheme : ThemeClass.lightTheme,
-        getPages: [
-          GetPage(name: '/detail/:linkId', page: () => DetailPage()),
-          GetPage(
-              name: '/read/:linkId', page: () => ReadPage()), // Dynamic route
-          GetPage(name: '/search', page: () => SearchPage()), // Dynamic route
-        ],
-        home: HomePage(),
-      );
-    });
+    bool isDarkMode = appData.read('darkMode');
+    return GetMaterialApp(
+      theme: isDarkMode ? ThemeClass.darkTheme : ThemeClass.lightTheme,
+      getPages: [
+        GetPage(name: '/home', page: () => HomePage()),
+        GetPage(name: '/detail/:linkId', page: () => DetailPage()),
+        GetPage(name: '/read/:linkId', page: () => ReadPage()), // Dynamic route
+        GetPage(name: '/search', page: () => SearchPage()), // Dynamic route
+      ],
+      initialRoute: '/home',
+    );
   }
 }
