@@ -12,6 +12,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool isDarkMode = appData.read('darkMode');
+    bool isGridView = appData.read('homeView');
 
     return Scaffold(
       floatingActionButton: FloatingActionButton(
@@ -86,13 +87,18 @@ class HomePage extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 10,
-                          ),
-                          child: Icon(
-                            Icons.sort,
-                            size: 30,
+                        GestureDetector(
+                          onTap: () {
+                            appData.write('homeView', !isGridView);
+                          },
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 10,
+                            ),
+                            child: Icon(
+                              isGridView ? Icons.grid_view : Icons.list_alt,
+                              size: 30,
+                            ),
                           ),
                         ),
                       ],
