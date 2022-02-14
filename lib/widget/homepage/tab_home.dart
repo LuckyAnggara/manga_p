@@ -3,9 +3,9 @@ import 'package:get/get.dart';
 import 'package:quizapp/controller/tab_home_controller.dart';
 
 class TabHome extends StatelessWidget {
+  final TabHomeController _tabX = Get.put(TabHomeController());
   @override
   Widget build(BuildContext context) {
-    final TabHomeController _tabX = Get.put(TabHomeController());
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.symmetric(

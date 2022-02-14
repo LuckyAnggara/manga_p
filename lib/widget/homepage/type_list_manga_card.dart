@@ -5,7 +5,6 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:quizapp/models/manga_type_model.dart';
 import 'package:quizapp/widget/bottom_modal_floating.dart';
 
-import '../../models/home_premium_model.dart';
 import '../bottom_modal_fit.dart';
 
 class TypeListMangaCard extends StatelessWidget {
@@ -53,13 +52,10 @@ class TypeListMangaCard extends StatelessWidget {
                   ),
                 ),
                 child: CachedNetworkImage(
-                  imageUrl: data.image == null || data.image == ''
-                      ? data.image!
-                      : data.image2!,
+                  imageUrl: data.image == null || data.image == '' ? data.image! : data.image2!,
                   imageBuilder: (context, imageProvider) => Container(
                     decoration: BoxDecoration(
-                      border: Border.all(
-                          width: 1.0, color: Colors.black.withOpacity(0.5)),
+                      border: Border.all(width: 1.0, color: Colors.black.withOpacity(0.5)),
                       borderRadius: BorderRadius.all(
                         Radius.circular(
                           12,
@@ -71,8 +67,7 @@ class TypeListMangaCard extends StatelessWidget {
                       ),
                     ),
                   ),
-                  placeholder: (context, url) =>
-                      const Center(child: CircularProgressIndicator()),
+                  placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
                   errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
               ),
@@ -105,9 +100,7 @@ class TypeListMangaCard extends StatelessWidget {
                       height: 5,
                     ),
                     Text(
-                      data.isCompleted == 'Completed'
-                          ? 'Completed'
-                          : 'Ongoing'!,
+                      data.isCompleted == 'Completed' ? 'Completed' : 'Ongoing',
                       style: TextStyle(
                         fontWeight: FontWeight.normal,
                         fontSize: 12,

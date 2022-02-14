@@ -4,10 +4,13 @@ import 'package:get_storage/get_storage.dart';
 class SearchBar extends StatelessWidget {
   final TextEditingController? controller;
   final VoidCallback? onPress;
+  final ValueChanged? onSubmit;
+
   SearchBar({
     Key? key,
     this.controller,
     this.onPress,
+    this.onSubmit,
   }) : super(key: key);
 
   final appData = GetStorage();
@@ -34,7 +37,9 @@ class SearchBar extends StatelessWidget {
         controller: controller,
         textInputAction: TextInputAction.search,
         style: TextStyle(
-            color: isDarkMode ? Colors.black : Colors.white, fontSize: 18),
+          color: isDarkMode ? Colors.black : Colors.white,
+          fontSize: 18,
+        ),
         decoration: InputDecoration(
           hintStyle: TextStyle(
             color: isDarkMode ? Colors.black54 : Colors.white54,
@@ -51,8 +56,7 @@ class SearchBar extends StatelessWidget {
             iconSize: 30.0,
           ),
         ),
-        onChanged: null,
-        onSubmitted: null,
+        onSubmitted: onSubmit,
       ),
     );
   }

@@ -5,6 +5,17 @@ class MangaTypeController extends GetxController {
   var isLoading = true.obs;
   var mangaList = [].obs;
 
+  @override
+  void onInit() {
+    // TODO: implement onInit
+    super.onInit();
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+  }
+
   void fetchManga(String type) async {
     try {
       isLoading(true);

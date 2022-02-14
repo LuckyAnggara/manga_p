@@ -3,24 +3,20 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:quizapp/controller/manga_favorites_controller.dart';
 import 'package:quizapp/controller/manga_type_controller.dart';
-import 'package:quizapp/widget/homepage/type_grid_manga_card.dart';
+import 'package:quizapp/widget/homepage/favorites_grid_manga_card.dart';
 import 'package:quizapp/widget/homepage/type_list_manga_card.dart';
 
-class TypeRecommendation extends StatelessWidget {
+class MyFavorites extends StatelessWidget {
   final appData = GetStorage();
-
-  final String type;
-
-  TypeRecommendation({Key? key, required this.type}) : super(key: key);
-
-  final MangaTypeController controller = MangaTypeController();
+  final MangaFavoritesController controller = Get.put(MangaFavoritesController());
 
   @override
   Widget build(BuildContext context) {
     bool isDarkMode = appData.read('darkMode');
     bool isGridView = appData.read('gridView');
-    controller.fetchManga(type);
+    controller.fetchManga();
     return Obx(() {
       if (controller.isLoading.value) {
         return const Center(
@@ -30,9 +26,7 @@ class TypeRecommendation extends StatelessWidget {
           ),
         );
       } else {
-        return isGridView
-            ? buildGridView(context, isDarkMode, controller)
-            : buildListView(context, isDarkMode, controller);
+        return buildGridView(context, isDarkMode, controller);
       }
     });
   }
@@ -60,7 +54,7 @@ class TypeRecommendation extends StatelessWidget {
   }
 
   AlignedGridView buildGridView(
-      BuildContext context, bool isDarkMode, MangaTypeController controller) {
+      BuildContext context, bool isDarkMode, MangaFavoritesController controller) {
     return AlignedGridView.count(
       padding: EdgeInsets.symmetric(
         horizontal: 10,
@@ -71,7 +65,7 @@ class TypeRecommendation extends StatelessWidget {
       mainAxisSpacing: 16,
       crossAxisSpacing: 16,
       itemBuilder: (context, x) {
-        return TypeGridMangaCard(
+        return FavoritesGridMangaCard(
           context: context,
           data: controller.mangaList[x],
         );

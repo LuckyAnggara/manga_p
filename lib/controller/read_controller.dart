@@ -5,6 +5,16 @@ import 'package:quizapp/services/api_service.dart';
 class ReadController extends GetxController {
   var isLoading = true.obs;
   var data = ReadModel().obs;
+  // ScrollController listViewController = ScrollController();
+
+  @override
+  void onInit() {
+    // TODO: implement onInit
+    // listViewController.addListener(() {
+    //   print(listViewController);
+    // });
+    super.onInit();
+  }
 
   void readManga(String linkId) async {
     try {

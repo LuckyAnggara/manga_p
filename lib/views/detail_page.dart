@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:quizapp/controller/detail_controller.dart';
 import 'package:quizapp/views/home_page.dart';
@@ -49,7 +50,10 @@ class DetailPage extends StatelessWidget {
               Obx(() {
                 if (detailController.isLoading.value) {
                   return const Center(
-                    child: CircularProgressIndicator(),
+                    child: SpinKitThreeBounce(
+                      color: Colors.red,
+                      size: 50.0,
+                    ),
                   );
                 } else {
                   DetailModel data = detailController.detail.value;
@@ -64,32 +68,26 @@ class DetailPage extends StatelessWidget {
                             Container(
                               padding: const EdgeInsets.only(right: 10),
                               width: size.width / 2 - 20,
-                              child: Hero(
-                                tag: data.linkId!,
-                                child: CachedNetworkImage(
-                                  imageUrl:
-                                      data.image == null || data.image == ''
-                                          ? data.image!
-                                          : data.image2!,
-                                  imageBuilder: (context, imageProvider) =>
-                                      Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: const BorderRadius.all(
-                                        Radius.circular(
-                                          12,
-                                        ),
-                                      ),
-                                      image: DecorationImage(
-                                        image: imageProvider,
-                                        fit: BoxFit.fill,
+                              child: CachedNetworkImage(
+                                imageUrl: data.image == null || data.image == ''
+                                    ? data.image!
+                                    : data.image2!,
+                                imageBuilder: (context, imageProvider) => Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.all(
+                                      Radius.circular(
+                                        12,
                                       ),
                                     ),
+                                    image: DecorationImage(
+                                      image: imageProvider,
+                                      fit: BoxFit.fill,
+                                    ),
                                   ),
-                                  placeholder: (context, url) => const Center(
-                                      child: CircularProgressIndicator()),
-                                  errorWidget: (context, url, error) =>
-                                      const Icon(Icons.error),
                                 ),
+                                placeholder: (context, url) =>
+                                    const Center(child: CircularProgressIndicator()),
+                                errorWidget: (context, url, error) => const Icon(Icons.error),
                               ),
                             ),
                             Container(
@@ -105,10 +103,7 @@ class DetailPage extends StatelessWidget {
                                     child: Text(
                                       data.title!,
                                       style: TextStyle(
-                                        color: Theme.of(context)
-                                            .textTheme
-                                            .bodyText1
-                                            ?.color,
+                                        color: Theme.of(context).textTheme.bodyText1?.color,
                                         fontWeight: FontWeight.bold,
                                         fontSize: 14,
                                       ),
@@ -121,10 +116,7 @@ class DetailPage extends StatelessWidget {
                                     text: TextSpan(
                                       text: 'Author ',
                                       style: TextStyle(
-                                          color: Theme.of(context)
-                                              .textTheme
-                                              .bodyText1
-                                              ?.color,
+                                          color: Theme.of(context).textTheme.bodyText1?.color,
                                           fontSize: 10),
                                       children: <TextSpan>[
                                         TextSpan(
@@ -151,8 +143,7 @@ class DetailPage extends StatelessWidget {
                                           data.genres!.length,
                                           (index) {
                                             return Container(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
+                                              padding: const EdgeInsets.symmetric(
                                                 vertical: 2,
                                                 horizontal: 4,
                                               ),
@@ -161,15 +152,13 @@ class DetailPage extends StatelessWidget {
                                                 border: Border.all(
                                                   color: Colors.teal,
                                                 ),
-                                                borderRadius:
-                                                    const BorderRadius.all(
+                                                borderRadius: const BorderRadius.all(
                                                   Radius.circular(
                                                     12,
                                                   ),
                                                 ),
                                               ),
-                                              margin: const EdgeInsets.only(
-                                                  right: 10, bottom: 4),
+                                              margin: const EdgeInsets.only(right: 10, bottom: 4),
                                               child: Text(
                                                 data.genres![index],
                                                 style: const TextStyle(
@@ -193,10 +182,7 @@ class DetailPage extends StatelessWidget {
                                       child: Text(
                                         data.synopsis!,
                                         style: TextStyle(
-                                          color: Theme.of(context)
-                                              .textTheme
-                                              .bodyText1
-                                              ?.color,
+                                          color: Theme.of(context).textTheme.bodyText1?.color,
                                           fontSize: 12,
                                         ),
                                         textAlign: TextAlign.justify,

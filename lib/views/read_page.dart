@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 
 import '../controller/read_controller.dart';
@@ -19,18 +21,47 @@ class ReadPage extends StatelessWidget {
           children: [
             Obx(() {
               if (readController.isLoading.value) {
-                return Center(child: CircularProgressIndicator());
+                return Center(
+                  child: SpinKitThreeBounce(
+                    color: Colors.red,
+                    size: 50.0,
+                  ),
+                );
               } else {
                 ReadModel data = readController.data.value;
-
                 return ListView.builder(
+                  // controller: readController.listViewController,
                   physics: BouncingScrollPhysics(),
                   itemCount: data.images!.length,
                   itemBuilder: (context, i) {
+                    return ExtendedImage.network(
+                      data.images![i],
+                      fit: BoxFit.cover,
+                      //enableLoadState: false,
+                      mode: ExtendedImageMode.gesture,
+                      cache: true,
+                      initGestureConfigHandler: (state) {
+                        return GestureConfig(
+                          minScale: 1,
+                          animationMinScale: 1,
+                          maxScale: 1.5,
+                          animationMaxScale: 2,
+                          speed: 1.0,
+                          inertialSpeed: 100.0,
+                          initialScale: 1.0,
+                          inPageView: false,
+                          initialAlignment: InitialAlignment.center,
+                        );
+                      },
+                    );
                     return CachedNetworkImage(
                       imageUrl: data.images![i],
+                      fit: BoxFit.cover,
                       placeholder: (context, url) => const Center(
-                        child: CircularProgressIndicator(),
+                        child: SpinKitThreeBounce(
+                          color: Colors.red,
+                          size: 50.0,
+                        ),
                       ),
                       errorWidget: (context, url, error) => const Icon(Icons.error),
                     );
@@ -56,6 +87,7 @@ class ReadPage extends StatelessWidget {
                   child: Icon(
                     Icons.arrow_back,
                     size: 30,
+                    color: Get.theme.scaffoldBackgroundColor,
                   ),
                 ),
               ),

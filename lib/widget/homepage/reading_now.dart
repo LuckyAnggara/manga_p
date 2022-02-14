@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -11,22 +12,23 @@ class ReadingNow extends StatelessWidget {
   ReadingNow({Key? key}) : super(key: key);
   final appData = GetStorage();
   final HomePremiumController homePremiumController =
-      Get.put(HomePremiumController());
+      Get.put(HomePremiumController(), tag: 'homePremium');
 
   @override
   Widget build(BuildContext context) {
     bool isDarkMode = appData.read('darkMode');
-    bool isGridView = appData.read('homeView');
-    homePremiumController.fetchManga();
+    bool isGridView = appData.read('gridView');
+
     return Obx(() {
       if (homePremiumController.isLoading.value) {
         return Center(
-          child: CircularProgressIndicator(),
+          child: SpinKitThreeBounce(
+            color: Colors.red,
+            size: 50.0,
+          ),
         );
       } else {
-        return isGridView
-            ? buildGridView(context, isDarkMode)
-            : buildListView(context, isDarkMode);
+        return isGridView ? buildGridView(context, isDarkMode) : buildListView(context, isDarkMode);
       }
     });
   }

@@ -7,114 +7,115 @@ import 'package:quizapp/widget/homepage/tab_home.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);
+
   final appData = GetStorage();
 
   @override
   Widget build(BuildContext context) {
-    bool isDarkMode = appData.read('darkMode');
-    bool isGridView = appData.read('homeView');
-
-    return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          isDarkMode
-              ? appData.write('darkMode', false)
-              : appData.write('darkMode', true);
-        },
-        child: Icon(
-          isDarkMode ? FontAwesomeIcons.moon : FontAwesomeIcons.sun,
-          color: isDarkMode ? Colors.black : Colors.white,
-        ),
-      ),
-      body: SafeArea(
-        child: Container(
-          padding: const EdgeInsets.symmetric(
-            vertical: 5,
-            horizontal: 10,
+    return SimpleBuilder(
+      builder: (_) {
+        bool isDarkMode = appData.read('darkMode');
+        bool isGridView = appData.read('gridView');
+        return Scaffold(
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              isDarkMode ? appData.write('darkMode', false) : appData.write('darkMode', true);
+            },
+            child: Icon(
+              isDarkMode ? FontAwesomeIcons.moon : FontAwesomeIcons.sun,
+              color: isDarkMode ? Colors.black : Colors.white,
+            ),
           ),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          body: SafeArea(
+            child: Container(
+              padding: const EdgeInsets.symmetric(
+                vertical: 5,
+                horizontal: 10,
+              ),
+              child: Column(
                 children: [
-                  Container(
-                    padding: const EdgeInsets.symmetric(vertical: 8),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        const Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 10,
-                          ),
-                          child: Icon(
-                            Icons.view_headline,
-                            size: 30,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 10,
-                          ),
-                          child: Text(
-                            'MANGAP',
-                            style: TextStyle(
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.bold,
-                              color:
-                                  Theme.of(context).textTheme.bodyText1?.color,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            const Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 10,
+                              ),
+                              child: Icon(
+                                Icons.view_headline,
+                                size: 30,
+                              ),
                             ),
-                          ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 10,
+                              ),
+                              child: Text(
+                                'MANGAP',
+                                style: TextStyle(
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: Theme.of(context).textTheme.bodyText1?.color,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            GestureDetector(
+                              onTap: () => Get.toNamed(
+                                '/search',
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 10,
+                                ),
+                                child: Icon(
+                                  Icons.search,
+                                  size: 30,
+                                ),
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                appData.write('gridView', !isGridView);
+                              },
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 10,
+                                ),
+                                child: Icon(
+                                  isGridView ? Icons.grid_view : Icons.list_alt,
+                                  size: 30,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
                   ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(vertical: 8),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        GestureDetector(
-                          onTap: () => Get.toNamed(
-                            '/search',
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 10,
-                            ),
-                            child: Icon(
-                              Icons.search,
-                              size: 30,
-                            ),
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            appData.write('homeView', !isGridView);
-                          },
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 10,
-                            ),
-                            child: Icon(
-                              isGridView ? Icons.grid_view : Icons.list_alt,
-                              size: 30,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  TabHome(),
+                  TabBody(),
                 ],
               ),
-              const SizedBox(
-                height: 20,
-              ),
-              TabHome(),
-              TabBody(),
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

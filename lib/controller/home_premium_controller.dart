@@ -5,6 +5,13 @@ class HomePremiumController extends GetxController {
   var isLoading = true.obs;
   var mangaList = [].obs;
 
+  @override
+  void onInit() {
+    // TODO: implement onInit
+    fetchManga();
+    super.onInit();
+  }
+
   void fetchManga() async {
     try {
       isLoading(true);

@@ -1,25 +1,19 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hive/hive.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:quizapp/models/favorite_manga_model.dart';
-import 'package:quizapp/models/manga_type_model.dart';
 
 import '../../constant.dart';
-import '../bottom_modal_fit.dart';
-import '../bottom_modal_floating.dart';
 
-class TypeGridMangaCard extends StatelessWidget {
-  TypeGridMangaCard({
+class FavoritesGridMangaCard extends StatelessWidget {
+  FavoritesGridMangaCard({
     Key? key,
     required this.context,
     required this.data,
   }) : super(key: key);
 
   final BuildContext context;
-  final MangaTypeModel data;
-  final box = Hive.box('myBox');
+  final FavoriteMangaModel data;
 
   @override
   Widget build(BuildContext context) {
@@ -29,29 +23,6 @@ class TypeGridMangaCard extends StatelessWidget {
           '/detail/${data.linkId}',
         );
       },
-      onLongPress: () => showMaterialModalBottomSheet(
-        expand: false,
-        context: context,
-        backgroundColor: Colors.transparent,
-        builder: (context) => FloatingModal(
-          child: BottomModalFit(
-            readCallBack: () => Get.toNamed(
-              '/detail/${data.linkId}',
-            ),
-            saveCallBack: () {
-              var _favorite = FavoriteMangaModel()
-                ..linkId = data.linkId
-                ..image = data.image2
-                ..title = data.title;
-
-              box.add(_favorite);
-              print(box.getAt(0));
-
-              Get.snackbar('Add to Favorites', '${data.title} has been add to Favorites');
-            },
-          ),
-        ),
-      ),
       child: SizedBox(
         height: 250,
         width: 80,
@@ -61,7 +32,7 @@ class TypeGridMangaCard extends StatelessWidget {
             Hero(
               tag: data.linkId!,
               child: CachedNetworkImage(
-                imageUrl: data.image == null || data.image == '' ? data.image! : data.image2!,
+                imageUrl: data.image!,
                 imageBuilder: (context, imageProvider) => Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(
@@ -90,18 +61,6 @@ class TypeGridMangaCard extends StatelessWidget {
                   data.title!,
                   style: kTitleManga,
                   textAlign: TextAlign.center,
-                ),
-              ),
-            ),
-            Positioned(
-              top: 10,
-              right: 10,
-              child: Container(
-                padding: EdgeInsets.all(5),
-                color: Colors.black.withOpacity(0.73),
-                child: Text(
-                  data.isCompleted == 'Completed' ? 'Completed' : 'Ongoing',
-                  style: kTitleChapManga,
                 ),
               ),
             ),

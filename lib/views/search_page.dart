@@ -22,9 +22,9 @@ class SearchPage extends StatelessWidget {
     final double itemHeight = (size.height - 180) / 2;
     final double itemWidth = size.width / 2;
 
-    return SafeArea(
-      child: Scaffold(
-        body: Padding(
+    return Scaffold(
+      body: SafeArea(
+        child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
           child: Column(
             children: [
@@ -45,6 +45,9 @@ class SearchPage extends StatelessWidget {
                     SearchBar(
                       controller: searchTextController,
                       onPress: () {
+                        search(searchTextController.text);
+                      },
+                      onSubmit: (_) {
                         search(searchTextController.text);
                       },
                     ),

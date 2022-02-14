@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class TabHomeController extends GetxController
-    with GetSingleTickerProviderStateMixin {
+class TabHomeController extends GetxController with GetSingleTickerProviderStateMixin {
   final List<String> tabList = [
     'Reading Now',
     'Manhwa',
