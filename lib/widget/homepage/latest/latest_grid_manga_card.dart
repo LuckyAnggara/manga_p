@@ -2,22 +2,22 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:quizapp/constant.dart';
+import 'package:quizapp/models/latest_manga_model.dart';
+import 'package:quizapp/widget/bottom_modal_fit.dart';
+import 'package:quizapp/widget/bottom_modal_floating.dart';
 
-import '../../constant.dart';
-import '../../controller/manga_favorites_controller.dart';
-import '../../models/home_premium_model.dart';
-import '../bottom_modal_fit.dart';
-import '../bottom_modal_floating.dart';
+import '../../../controller/manga_favorites_controller.dart';
 
-class GridMangaCard extends StatelessWidget {
-  GridMangaCard({
+class LatestGridMangaCard extends StatelessWidget {
+  LatestGridMangaCard({
     Key? key,
     required this.context,
     required this.data,
   }) : super(key: key);
 
   final BuildContext context;
-  final HomePremiumModel data;
+  final LatestMangaModel data;
   final MangaFavoritesController mangaFavoritesController = Get.find(tag: 'FavoritesController');
 
   @override

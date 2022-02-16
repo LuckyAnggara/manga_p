@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 class TabHomeController extends GetxController with GetSingleTickerProviderStateMixin {
   final List<String> tabList = [
     'Reading Now',
+    'Latest',
     'Manhwa',
     'Manga',
     'Manhua',

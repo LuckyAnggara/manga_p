@@ -5,10 +5,11 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:quizapp/models/manga_type_model.dart';
 import 'package:quizapp/widget/bottom_modal_floating.dart';
 
+import '../../controller/manga_favorites_controller.dart';
 import '../bottom_modal_fit.dart';
 
 class TypeListMangaCard extends StatelessWidget {
-  const TypeListMangaCard({
+  TypeListMangaCard({
     Key? key,
     required this.context,
     required this.data,
@@ -16,6 +17,7 @@ class TypeListMangaCard extends StatelessWidget {
 
   final BuildContext context;
   final MangaTypeModel data;
+  final MangaFavoritesController mangaFavoritesController = Get.find(tag: 'FavoritesController');
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +34,11 @@ class TypeListMangaCard extends StatelessWidget {
             readCallBack: () => Get.toNamed(
               '/detail/${data.linkId}',
             ),
-            saveCallBack: () {},
+            saveCallBack: () {
+              Navigator.of(context).pop();
+              mangaFavoritesController.addFavorites(data);
+              Get.snackbar('Add to Favorites', '${data.title} has been add to Favorites');
+            },
           ),
         ),
       ),

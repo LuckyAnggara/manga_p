@@ -13,5 +13,9 @@ class FavoriteMangaModel {
   @HiveField(2)
   String? image;
 
-  FavoriteMangaModel({this.image, this.linkId, this.title});
+  FavoriteMangaModel({
+    this.image,
+    this.linkId,
+    this.title,
+  });
 }

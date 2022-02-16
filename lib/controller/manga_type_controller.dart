@@ -3,11 +3,16 @@ import 'package:quizapp/services/api_service.dart';
 
 class MangaTypeController extends GetxController {
   var isLoading = true.obs;
-  var mangaList = [].obs;
+  var mangaListManhwa = [].obs;
+  var mangaListManga = [].obs;
+  var mangaListManhua = [].obs;
 
   @override
   void onInit() {
     // TODO: implement onInit
+    fetchManga('manhwa');
+    fetchManga('manga');
+    fetchManga('manhua');
     super.onInit();
   }
 
@@ -20,7 +25,13 @@ class MangaTypeController extends GetxController {
     try {
       isLoading(true);
       var dataManga = await ApiService.fetchMangaTypeRecommendation(type);
-      mangaList.value = dataManga;
+      if (type == 'manhwa') {
+        mangaListManhwa.value = dataManga;
+      } else if (type == 'manga') {
+        mangaListManga.value = dataManga;
+      } else {
+        mangaListManhua.value = dataManga;
+      }
     } finally {
       isLoading(false);
     }

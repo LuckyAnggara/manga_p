@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:quizapp/controller/manga_type_controller.dart';
 import 'package:quizapp/widget/homepage/my_favorites.dart';
 import 'package:quizapp/widget/homepage/type_recommendation.dart';
 
 import '../../controller/tab_home_controller.dart';
+import 'latest/latest_page.dart';
 import 'reading_now.dart';
 
 class TabBody extends StatelessWidget {
@@ -12,6 +14,7 @@ class TabBody extends StatelessWidget {
   final TabHomeController _tabX = Get.put(
     TabHomeController(),
   );
+  final MangaTypeController _mangaTypeController = Get.find(tag: 'TypeMangaController');
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -25,14 +28,15 @@ class TabBody extends StatelessWidget {
           controller: _tabX.controller,
           children: [
             ReadingNow(),
+            LatestPage(),
             TypeRecommendation(
-              type: 'manhwa',
+              listManga: _mangaTypeController.mangaListManhwa,
             ),
             TypeRecommendation(
-              type: 'manga',
+              listManga: _mangaTypeController.mangaListManga,
             ),
             TypeRecommendation(
-              type: 'manhua',
+              listManga: _mangaTypeController.mangaListManhua,
             ),
             MyFavorites()
           ],

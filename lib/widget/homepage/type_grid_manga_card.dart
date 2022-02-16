@@ -1,9 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hive/hive.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:quizapp/models/favorite_manga_model.dart';
+import 'package:quizapp/controller/manga_favorites_controller.dart';
 import 'package:quizapp/models/manga_type_model.dart';
 
 import '../../constant.dart';
@@ -19,7 +18,7 @@ class TypeGridMangaCard extends StatelessWidget {
 
   final BuildContext context;
   final MangaTypeModel data;
-  final box = Hive.box('myBox');
+  final MangaFavoritesController mangaFavoritesController = Get.find(tag: 'FavoritesController');
 
   @override
   Widget build(BuildContext context) {
@@ -39,14 +38,8 @@ class TypeGridMangaCard extends StatelessWidget {
               '/detail/${data.linkId}',
             ),
             saveCallBack: () {
-              var _favorite = FavoriteMangaModel()
-                ..linkId = data.linkId
-                ..image = data.image2
-                ..title = data.title;
-
-              box.add(_favorite);
-              print(box.getAt(0));
-
+              Navigator.of(context).pop();
+              mangaFavoritesController.addFavorites(data);
               Get.snackbar('Add to Favorites', '${data.title} has been add to Favorites');
             },
           ),

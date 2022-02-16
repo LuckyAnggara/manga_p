@@ -1,9 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:quizapp/models/favorite_manga_model.dart';
+import 'package:quizapp/widget/myfavorite/bottom_modal_fit_favorites.dart';
 
 import '../../constant.dart';
+import '../../controller/manga_favorites_controller.dart';
+import '../myfavorite/bottom_modal_floating_favorites.dart';
 
 class FavoritesGridMangaCard extends StatelessWidget {
   FavoritesGridMangaCard({
@@ -15,6 +19,8 @@ class FavoritesGridMangaCard extends StatelessWidget {
   final BuildContext context;
   final FavoriteMangaModel data;
 
+  final MangaFavoritesController mangaFavoritesController = Get.find(tag: 'FavoritesController');
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -23,6 +29,21 @@ class FavoritesGridMangaCard extends StatelessWidget {
           '/detail/${data.linkId}',
         );
       },
+      onLongPress: () => showMaterialModalBottomSheet(
+        expand: false,
+        context: context,
+        backgroundColor: Colors.transparent,
+        builder: (context) => FloatingModalFavorites(
+          child: BottomModalFitFavorites(
+            readCallBack: () => Get.toNamed(
+              '/detail/${data.linkId}',
+            ),
+            deleteCallBack: () {
+              mangaFavoritesController.deleteManga(data.linkId);
+            },
+          ),
+        ),
+      ),
       child: SizedBox(
         height: 250,
         width: 80,

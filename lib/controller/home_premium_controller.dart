@@ -12,6 +12,12 @@ class HomePremiumController extends GetxController {
     super.onInit();
   }
 
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
+
   void fetchManga() async {
     try {
       isLoading(true);

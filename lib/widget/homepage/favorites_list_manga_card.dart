@@ -2,22 +2,20 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:quizapp/widget/bottom_modal_floating.dart';
+import 'package:quizapp/widget/myfavorite/bottom_modal_floating_favorites.dart';
 
-import '../../controller/manga_favorites_controller.dart';
-import '../../models/home_premium_model.dart';
-import '../bottom_modal_fit.dart';
+import '../../models/favorite_manga_model.dart';
+import '../myfavorite/bottom_modal_fit_favorites.dart';
 
-class ListMangaCard extends StatelessWidget {
-  ListMangaCard({
+class FavoritesListMangaCard extends StatelessWidget {
+  const FavoritesListMangaCard({
     Key? key,
     required this.context,
     required this.data,
   }) : super(key: key);
 
   final BuildContext context;
-  final HomePremiumModel data;
-  final MangaFavoritesController mangaFavoritesController = Get.find(tag: 'FavoritesController');
+  final FavoriteMangaModel data;
 
   @override
   Widget build(BuildContext context) {
@@ -29,16 +27,12 @@ class ListMangaCard extends StatelessWidget {
         expand: false,
         context: context,
         backgroundColor: Colors.transparent,
-        builder: (context) => FloatingModal(
-          child: BottomModalFit(
+        builder: (context) => FloatingModalFavorites(
+          child: BottomModalFitFavorites(
             readCallBack: () => Get.toNamed(
-              '/read/${data.chId}',
+              '/detail/${data.linkId}',
             ),
-            saveCallBack: () {
-              Navigator.of(context).pop();
-              mangaFavoritesController.addFavorites(data);
-              Get.snackbar('Add to Favorites', '${data.title} has been add to Favorites');
-            },
+            deleteCallBack: () {},
           ),
         ),
       ),
@@ -58,7 +52,7 @@ class ListMangaCard extends StatelessWidget {
                   ),
                 ),
                 child: CachedNetworkImage(
-                  imageUrl: data.image == null || data.image == '' ? data.image! : data.image2!,
+                  imageUrl: data.image!,
                   imageBuilder: (context, imageProvider) => Container(
                     decoration: BoxDecoration(
                       border: Border.all(width: 1.0, color: Colors.black.withOpacity(0.5)),
@@ -84,37 +78,35 @@ class ListMangaCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    FittedBox(
-                      child: Text(
-                        data.title!,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 24,
-                        ),
-                        textAlign: TextAlign.left,
+                    Text(
+                      data.title!,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 24,
                       ),
+                      textAlign: TextAlign.left,
                     ),
                     SizedBox(
                       height: 10,
                     ),
-                    Text(
-                      data.ch!,
-                      style: TextStyle(
-                        fontSize: 14,
-                      ),
-                      textAlign: TextAlign.left,
-                    ),
+                    // Text(
+                    //   data.rating!,
+                    //   style: TextStyle(
+                    //     fontSize: 14,
+                    //   ),
+                    //   textAlign: TextAlign.left,
+                    // ),
                     SizedBox(
                       height: 5,
                     ),
-                    Text(
-                      data.chTime!,
-                      style: TextStyle(
-                        fontWeight: FontWeight.normal,
-                        fontSize: 12,
-                      ),
-                      textAlign: TextAlign.left,
-                    ),
+                    // Text(
+                    //   data.isCompleted == 'Completed' ? 'Completed' : 'Ongoing',
+                    //   style: TextStyle(
+                    //     fontWeight: FontWeight.normal,
+                    //     fontSize: 12,
+                    //   ),
+                    //   textAlign: TextAlign.left,
+                    // ),
                   ],
                 ),
               ),

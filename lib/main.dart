@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hive/hive.dart';
@@ -10,15 +11,20 @@ import 'package:quizapp/views/home_page.dart';
 import 'package:quizapp/views/read_page.dart';
 import 'package:quizapp/views/search_page.dart';
 
+import 'controller/latest_controller.dart';
+import 'controller/manga_favorites_controller.dart';
+import 'controller/manga_type_controller.dart';
+
 void main() async {
   await GetStorage.init();
   Hive.registerAdapter(FavoriteMangaModelAdapter());
-  // LicenseRegistry.addLicense(() async* {
-  //   final license = await rootBundle.loadString('google_fonts/LICENSE.txt');
-  //   yield LicenseEntryWithLineBreaks(['google_fonts'], license);
-  // });
+  LicenseRegistry.addLicense(() async* {
+    final license = await rootBundle.loadString('google_fonts/LICENSE.txt');
+    yield LicenseEntryWithLineBreaks(['google_fonts'], license);
+  });
   await Hive.initFlutter();
-  await Hive.openBox('myBox');
+  await Hive.openBox('FavoriteBox');
+
   runApp(Home());
 }
 
@@ -42,6 +48,13 @@ class ThemeClass {
 
 class Home extends StatelessWidget {
   final appData = GetStorage();
+  final MangaFavoritesController controller =
+      Get.put(MangaFavoritesController(), tag: 'FavoritesController');
+
+  final MangaTypeController _mangaTypeController =
+      Get.put(MangaTypeController(), tag: 'TypeMangaController');
+
+  final LatestController latestController = Get.put(LatestController(), tag: 'latestController');
 
   Home({Key? key}) : super(key: key);
 

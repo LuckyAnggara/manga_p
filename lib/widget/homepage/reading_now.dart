@@ -12,7 +12,7 @@ class ReadingNow extends StatelessWidget {
   ReadingNow({Key? key}) : super(key: key);
   final appData = GetStorage();
   final HomePremiumController homePremiumController =
-      Get.put(HomePremiumController(), tag: 'homePremium');
+      Get.put(HomePremiumController(), tag: 'HomePremiumController');
 
   @override
   Widget build(BuildContext context) {
